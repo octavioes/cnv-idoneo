@@ -246,8 +246,8 @@
 
         // Hide "Siguiente" on last question, show "Finalizar" instead
         const isLast = idx === state.questions.length - 1;
-        $("#btn-next").style.display = isLast ? "none" : "";
-        $("#btn-finish").style.display = isLast ? "" : "none";
+        $("#btn-next").style.display = isLast ? "none" : "inline-block";
+        $("#btn-finish").style.display = isLast ? "inline-block" : "none";
 
         updateDots();
     }
