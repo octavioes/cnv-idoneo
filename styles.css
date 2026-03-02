@@ -53,20 +53,29 @@ header {
 }
 
 .header-content {
-    padding: 1.2rem 2rem 0.8rem;
-    text-align: center;
+    padding: 0.6rem 2rem 0.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+}
+
+.header-logo {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
 }
 
 header h1 {
-    font-size: 1.5rem;
+    font-size: 1.15rem;
     font-weight: 700;
     letter-spacing: 0.5px;
 }
 
 .subtitle {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     opacity: 0.85;
-    margin-top: 0.2rem;
+    margin-top: 0.1rem;
 }
 
 /* ===== TABS ===== */
@@ -81,10 +90,10 @@ header h1 {
     background: transparent;
     border: none;
     color: rgba(255,255,255,0.7);
-    padding: 0.75rem 2rem;
-    font-size: 0.95rem;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.85rem;
     cursor: pointer;
-    border-bottom: 3px solid transparent;
+    border-bottom: 2px solid transparent;
     transition: all 0.2s;
     font-weight: 500;
 }
