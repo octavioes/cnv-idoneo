@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Examen Idóneo CNV Argentina</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Simulador Examen Idóneo CNV</h1>
+            <p class="subtitle">Comisión Nacional de Valores - Argentina</p>
+        </div>
+        <nav class="tabs">
+            <button class="tab active" data-tab="simulador">Simulador de Examen</button>
+            <button class="tab" data-tab="bibliografia">Bibliografía</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- ===== TAB: SIMULADOR ===== -->
+        <section id="tab-simulador" class="tab-content active">
+
+            <!-- Pantalla de selección de módulo -->
+            <div id="screen-modules" class="screen active">
+                <h2>Seleccioná un módulo para comenzar</h2>
+                <p class="instructions">Elegí el módulo que querés practicar o seleccioná "Examen Completo" para un simulacro integral.</p>
+                <div id="module-grid" class="module-grid"></div>
+            </div>
+
+            <!-- Pantalla de configuración del examen -->
+            <div id="screen-config" class="screen">
+                <div class="config-card">
+                    <h2 id="config-title">Configuración del Examen</h2>
+                    <div class="config-options">
+                        <div class="config-group">
+                            <label for="num-questions">Cantidad de preguntas:</label>
+                            <select id="num-questions">
+                                <option value="10">10 preguntas</option>
+                                <option value="20">20 preguntas</option>
+                                <option value="30">30 preguntas</option>
+                                <option value="0" selected>Todas las disponibles</option>
+                            </select>
+                        </div>
+                        <div class="config-group">
+                            <label for="time-limit">Tiempo límite:</label>
+                            <select id="time-limit">
+                                <option value="0">Sin límite</option>
+                                <option value="30">30 minutos</option>
+                                <option value="60" selected>60 minutos</option>
+                                <option value="90">90 minutos</option>
+                                <option value="120">120 minutos</option>
+                            </select>
+                        </div>
+                        <div class="config-group">
+                            <label>
+                                <input type="checkbox" id="shuffle-questions" checked>
+                                Mezclar orden de preguntas
+                            </label>
+                        </div>
+                        <div class="config-group">
+                            <label>
+                                <input type="checkbox" id="shuffle-options" checked>
+                                Mezclar orden de opciones
+                            </label>
+                        </div>
+                    </div>
+                    <div class="config-actions">
+                        <button class="btn btn-secondary" id="btn-back-modules">Volver</button>
+                        <button class="btn btn-primary" id="btn-start-exam">Comenzar Examen</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pantalla del examen -->
+            <div id="screen-exam" class="screen">
+                <div class="exam-header">
+                    <div class="exam-info">
+                        <span id="exam-module-name" class="module-badge"></span>
+                        <span id="question-counter">Pregunta 1 de 10</span>
+                    </div>
+                    <div id="timer" class="timer">--:--</div>
+                </div>
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+                <div class="question-card">
+                    <h3 id="question-text"></h3>
+                    <div id="options-container" class="options-container"></div>
+                </div>
+                <div class="exam-navigation">
+                    <button class="btn btn-secondary" id="btn-prev">Anterior</button>
+                    <div class="question-dots" id="question-dots"></div>
+                    <button class="btn btn-primary" id="btn-next">Siguiente</button>
+                </div>
+                <div class="exam-footer">
+                    <button class="btn btn-danger" id="btn-finish">Finalizar Examen</button>
+                </div>
+            </div>
+
+            <!-- Pantalla de resultados -->
+            <div id="screen-results" class="screen">
+                <div class="results-container">
+                    <div class="results-summary">
+                        <h2>Resultados del Examen</h2>
+                        <div class="score-circle" id="score-circle">
+                            <span class="score-percentage" id="score-percentage">0%</span>
+                            <span class="score-label" id="score-label">Aprobado</span>
+                        </div>
+                        <div class="results-stats">
+                            <div class="stat correct">
+                                <span class="stat-number" id="stat-correct">0</span>
+                                <span class="stat-label">Correctas</span>
+                            </div>
+                            <div class="stat incorrect">
+                                <span class="stat-number" id="stat-incorrect">0</span>
+                                <span class="stat-label">Incorrectas</span>
+                            </div>
+                            <div class="stat unanswered">
+                                <span class="stat-number" id="stat-unanswered">0</span>
+                                <span class="stat-label">Sin responder</span>
+                            </div>
+                            <div class="stat total">
+                                <span class="stat-number" id="stat-total">0</span>
+                                <span class="stat-label">Total</span>
+                            </div>
+                        </div>
+                        <div class="results-info">
+                            <p id="passing-message"></p>
+                            <p id="time-taken"></p>
+                        </div>
+                    </div>
+
+                    <div class="results-filter">
+                        <button class="filter-btn active" data-filter="all">Todas</button>
+                        <button class="filter-btn" data-filter="incorrect">Incorrectas</button>
+                        <button class="filter-btn" data-filter="unanswered">Sin responder</button>
+                        <button class="filter-btn" data-filter="correct">Correctas</button>
+                    </div>
+
+                    <div id="results-detail" class="results-detail"></div>
+
+                    <div class="results-actions">
+                        <button class="btn btn-secondary" id="btn-retry">Reintentar mismo módulo</button>
+                        <button class="btn btn-primary" id="btn-new-exam">Nuevo Examen</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== TAB: BIBLIOGRAFÍA ===== -->
+        <section id="tab-bibliografia" class="tab-content">
+            <div class="biblio-container">
+                <h2>Material de Estudio</h2>
+                <p class="biblio-intro">Acá podés consultar y adjuntar el material de estudio para preparar el examen de Idóneo CNV.</p>
+
+                <div class="biblio-upload-area">
+                    <div class="upload-box" id="upload-box">
+                        <div class="upload-icon">&#128206;</div>
+                        <p>Arrastrá archivos acá o hacé clic para seleccionar</p>
+                        <p class="upload-hint">PDF, DOC, DOCX, TXT, JPG, PNG (máx. 25MB)</p>
+                        <input type="file" id="file-input" multiple accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png" hidden>
+                    </div>
+                </div>
+
+                <div id="uploaded-files" class="uploaded-files"></div>
+
+                <div class="biblio-sections">
+                    <div class="biblio-section" id="biblio-modulos"></div>
+                </div>
+
+                <div class="biblio-links">
+                    <h3>Enlaces Útiles</h3>
+                    <ul>
+                        <li><a href="https://www.argentina.gob.ar/cnv" target="_blank" rel="noopener">Comisión Nacional de Valores - Sitio Oficial</a></li>
+                        <li><a href="https://www.argentina.gob.ar/cnv/educacion" target="_blank" rel="noopener">CNV - Educación Financiera</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Simulador de Examen Idóneo CNV - Herramienta de estudio. No oficial.</p>
+    </footer>
+
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
